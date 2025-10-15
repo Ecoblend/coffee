@@ -62,6 +62,11 @@
     .tier{display:inline-flex;align-items:center;gap:8px}
     .tier .dot{width:10px;height:10px;border-radius:999px;display:inline-block}
     footer{border-top:1px solid #3b574a;color:var(--muted);font-size:12px;padding:16px;text-align:center;background:#12211c}
+    .toolbar.hide {
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
+}
     /* Certificate */
     #certificate{display:none; background:#f7f7f3; color:#222; padding:24px; border:1px solid #d9d4c7; border-radius:16px; box-shadow:0 8px 30px rgba(0,0,0,.06); margin-top:18px}
     #certificate .frame{border:3px solid var(--gold);border-radius:16px;padding:20px;background:linear-gradient(180deg,#fff,#fffef7)}
@@ -74,14 +79,7 @@
     #certificate .small{color:#666; font-size:12px; margin-top:12px}
     #locknote{margin-top:8px;color:#d6c8a4}
     /* Watermark */
-    .wm{position:fixed;right:14px;bottom:78px;opacity:.12;pointer-events:none;z-index:5}
-    .wm img{width:110px;height:auto}
-    @media (max-width: 640px){
-      .row{grid-template-columns:1fr;gap:8px}
-      .stats{grid-template-columns:1fr}
-      .wm img{width:80px}
-      progress{width:100%}
-    }
+
     @media print{
       header, .toolbar, footer, .tabs, .start, .wm { display:none !important; }
       body{ background:white }

@@ -116,8 +116,8 @@
     visibility: visible !important;
     opacity: 1 !important;
     margin-top: 20px;
-    background: #ffffff;
-    color: #000000;
+    background: var(--panel);
+    color: var(--muted);
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
     border-radius: 8px;
     padding: 20px;
@@ -132,13 +132,12 @@
     display: block !important;
   }
 }
-/* === Emergency visible override === */
-body, main, #certificate {
+
+/* Keep certificate visible but preserve theme */
+#certificate {
   display: block !important;
   visibility: visible !important;
   opacity: 1 !important;
-  color: black !important;
-  background: white !important;
 }
 
   </style>

@@ -256,18 +256,20 @@
     function openCert(){ $("#certificate").style.display = "block"; window.print(); $("#certificate").style.display = "none"; } $("#print").onclick = openCert; $("#print2").onclick = openCert; render(); onScrollToolbar();
   });
     // Smart toolbar: hide when footer in view
-const toolbar = $("#toolbar");
+const toolbar = document.getElementById("toolbar");
 const footer = document.getElementById("pageFooter");
-const io = new IntersectionObserver((entries)=>{
-  entries.forEach(e => { 
-    if (e.isIntersecting) { 
-      toolbar.classList.add("hide"); 
-    } else { 
-      toolbar.classList.remove("hide"); 
-    } 
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      toolbar.classList.add("hide");
+    } else {
+      toolbar.classList.remove("hide");
+    }
   });
-}, {root:null, threshold:0.01});
-io.observe(footer);
+}, { root: null, threshold: 0.1 }); // 0.1 = when 10% of footer is visible
+
+observer.observe(footer);
   </script>
 </body>
 </html>

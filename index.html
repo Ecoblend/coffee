@@ -109,6 +109,24 @@
       #certificate{ display:block; box-shadow:none; border:none; margin-top:0 }
       main .wrap > *:not(#certificate){ display:none !important }
     }
+    /* === Certificate always visible on screen (especially mobile) === */
+@media screen and (max-width: 1024px) {
+  #certificate {
+    display: block !important;
+    margin-top: 20px;
+    background: #ffffff;
+    color: #000000;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    padding: 20px;
+  }
+
+  #certificate * {
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+}
+
   </style>
 </head>
 <body>
@@ -121,14 +139,14 @@
           <div class="subtitle">Answer simple questions. Get your score, tier, and certificate. Dark mode saves energy on OLED screens.</div>
         </div>
       </div>
-      <div class="start">
+     <div class="start">
         <label for="cafename">Café name:</label>
         <input id="cafename" placeholder="Type your café name" />
         <button class="btn" id="saveName">Save name</button>
         <div style="margin-left:auto;display:flex;align-items:center;gap:10px;">
           <button class="btn" id="toggleTheme">🌙 Dark / ☀️ Light</button>
           <span class="hint">💡 Dark mode can reduce screen energy use by up to ~40% on OLED displays.</span>
-        </div>
+        </div> 
       </div>
       <div class="tabs" id="tabs"></div>
     </div>
@@ -288,6 +306,13 @@ document.addEventListener("DOMContentLoaded", () => {
   window.addEventListener("resize", checkFooter);
   checkFooter();
 });
+
+// === Update café name live while typing ===
+document.getElementById("cafename").addEventListener("input", e => {
+  const certName = document.getElementById("certCafe");
+  if (certName) certName.textContent = e.target.value || "Your Café";
+});
+    
 </script>
 
 </body>

@@ -110,29 +110,28 @@
       main .wrap > *:not(#certificate){ display:none !important }
     }
 /* === Certificate visible on mobile and small screens === */
-    @media screen and (max-width: 1024px) {
-      #certificate {
-      display: block !important;
-      visibility: visible !important;
-      opacity: 1 !important;
-      margin-top: 20px;
-      background: #ffffff;
-      color: #000000;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      border-radius: 8px;
-      padding: 20px;
-    }
-
-    #certificate * {
-      visibility: visible !important;
-      opacity: 1 !important;
-    }
-  
-    /* Hide other print-only layout tricks */
-    main .wrap > *:not(#certificate) {
-      display: block !important;
-    }
+@media screen and (max-width: 1024px) {
+  #certificate {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    margin-top: 20px;
+    background: #ffffff;
+    color: #000000;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    padding: 20px;
   }
+
+  #certificate * {
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+
+  main .wrap > *:not(#certificate) {
+    display: block !important;
+  }
+}
 
   </style>
 </head>
@@ -280,21 +279,22 @@
     $("#export").onclick = () => { const header = ["ID","Section","Sub","Question","Answer (normalized)","Raw"]; const rows = ITEMS.map(it=>{ const raw = (state[it.id]!==undefined? state[it.id] : ""); let norm = 0; if(it.type==="tri") norm = raw/5; else if(it.type==="percent") norm = Math.max(0, Math.min(1, raw/100)); else if(it.type==="dropdown") norm = Math.max(0, Math.min(1, raw/5)); return [it.id,it.sec,it.sub,it.label, norm.toFixed(2), raw]; }); const csv = [header].concat(rows).map(r => r.map(x => '"' + String(x).replace(/"/g,'""') + '"').join(",")).join("\\n"); const overall = calc(); const blob = new Blob([csv + "\\n\\nOverall Score,"+overall+"/100"], {type:"text/csv;charset=utf-8;"}); const url = URL.createObjectURL(blob); const a=document.createElement("a"); a.href=url; a.download="ecoblend_sustainability_results.csv"; a.click(); URL.revokeObjectURL(url); };
     function openCert(){ $("#certificate").style.display = "block"; window.print(); $("#certificate").style.display = "none"; } $("#print").onclick = openCert; $("#print2").onclick = openCert; render(); onScrollToolbar();
   });
-    // Smart toolbar: hide when footer in view
-const toolbar = document.getElementById("toolbar");
-const footer = document.getElementById("pageFooter");
+// === Safe toolbar hide / footer detection ===
+const toolbar = document.getElementById('toolbar');
+const footer  = document.getElementById('pageFooter');
 
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      toolbar.classList.add("hide");
-    } else {
-      toolbar.classList.remove("hide");
-    }
+if (footer && toolbar) {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) toolbar.classList.add('hide');
+      else toolbar.classList.remove('hide');
+    });
   });
-}, { root: null, threshold: 0.1 }); // 0.1 = when 10% of footer is visible
+  observer.observe(footer);
+} else {
+  console.warn("Footer or toolbar not found — skipping observer");
+}
 
-observer.observe(footer);
   </script>
   <script>
 document.addEventListener("DOMContentLoaded", () => {

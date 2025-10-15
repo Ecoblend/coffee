@@ -303,7 +303,16 @@ document.addEventListener("DOMContentLoaded", () => {
     console.warn("Footer or toolbar not found — skipping observer");
   }
 
-  </script>
+  // Force certificate visible for testing
+  const cert = document.getElementById("certificate");
+  if (cert) {
+    cert.style.display = "block";
+    cert.style.visibility = "visible";
+    cert.style.opacity = "1";
+    console.log("✅ Certificate forced visible");
+  }
+});
+
   <script>
 document.addEventListener("DOMContentLoaded", () => {
   const toolbar = document.querySelector(".toolbar");
@@ -327,15 +336,7 @@ document.getElementById("cafename").addEventListener("input", e => {
   const certName = document.getElementById("certCafe");
   if (certName) certName.textContent = e.target.value || "Your Café";
 });
-      // Force certificate visible for testing
-  const cert = document.getElementById("certificate");
-  if (cert) {
-    cert.style.display = "block";
-    cert.style.visibility = "visible";
-    cert.style.opacity = "1";
-    console.log("✅ Certificate forced visible");
-  }
-});
+     
 </script>
 
 </body>

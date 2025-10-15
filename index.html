@@ -95,15 +95,16 @@
     #certificate .small{color:#666; font-size:12px; margin-top:12px}
     #locknote{margin-top:8px;color:#d6c8a4}
     /* Watermark */
-  
+    .wm{position:fixed;right:14px;bottom:78px;opacity:.12;pointer-events:none;z-index:5}
+    .wm img{width:110px;height:auto}
     @media (max-width: 640px){
       .row{grid-template-columns:1fr;gap:8px}
       .stats{grid-template-columns:1fr}
- 
+      .wm img{width:80px}
       progress{width:100%}
     }
     @media print{
-      header, .toolbar, footer, .tabs, .start, }
+      header, .toolbar, footer, .tabs, .start, .wm { display:none !important; }
       body{ background:white }
       #certificate{ display:block; box-shadow:none; border:none; margin-top:0 }
       main .wrap > *:not(#certificate){ display:none !important }

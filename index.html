@@ -109,23 +109,30 @@
       #certificate{ display:block; box-shadow:none; border:none; margin-top:0 }
       main .wrap > *:not(#certificate){ display:none !important }
     }
-    /* === Certificate always visible on screen (especially mobile) === */
-@media screen and (max-width: 1024px) {
-  #certificate {
-    display: block !important;
-    margin-top: 20px;
-    background: #ffffff;
-    color: #000000;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    border-radius: 8px;
-    padding: 20px;
-  }
+/* === Certificate visible on mobile and small screens === */
+    @media screen and (max-width: 1024px) {
+      #certificate {
+      display: block !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+      margin-top: 20px;
+      background: #ffffff;
+      color: #000000;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      padding: 20px;
+    }
 
-  #certificate * {
-    visibility: visible !important;
-    opacity: 1 !important;
+    #certificate * {
+      visibility: visible !important;
+      opacity: 1 !important;
+    }
+  
+    /* Hide other print-only layout tricks */
+    main .wrap > *:not(#certificate) {
+      display: block !important;
+    }
   }
-}
 
   </style>
 </head>
